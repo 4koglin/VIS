@@ -1,0 +1,224 @@
+\documentclass[10pt,a4paper, xcolor=dvipsnames]{article} % [SchriftgrÃ¶ÃŸe, Papierformat] {Art des Dokuments}
+
+
+%---------------------------------------------------------------------------------------
+% Die folgenden sind grundlegende Packete, die man meistens braucht:
+% fÃ¼r deutsch (z.B Ã¤,Ã¶,...)
+\usepackage[ansinew]{inputenc}
+\usepackage{enumerate} % fÃ¼r einfache AufzÃ¤hlungen
+\usepackage{amsmath}  % fÃ¼r mathematische Formeln und Symbole
+\usepackage{amsfonts} % auch fÃ¼r Mathe
+\usepackage{amssymb}  % auch fÃ¼r Mathe
+\usepackage{amsthm}   % auch fÃ¼r Mathe
+\usepackage{a4wide} % macht die SeitenrÃ¤nder kleiner
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{lastpage}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{light-gray}{gray}{0.25}
+
+\lstdefinestyle{java}{
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\footnotesize\ttfamily},
+  numberstyle={\tiny},
+  numbers=left,
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+%Kopf- und Fußzeile
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+
+%Kopfzeile links bzw. innen
+\fancyhead[L]{VIS, Blatt 1 -  Merlin Koglin}
+%Kopfzeile rechts bzw. außen
+\fancyhead[R]{\today}
+%Linie oben
+\renewcommand{\headrulewidth}{0.5pt}
+
+\rfoot{Page \thepage \hspace{1pt} of \pageref{LastPage}}
+
+\newlength\tindent
+\setlength{\tindent}{\parindent}
+\setlength{\parindent}{0pt}
+\renewcommand{\indent}{\hspace*{\tindent}}
+
+\begin{document} % Hier fÃ¤ngt logischerweise das Document an ;)
+
+
+\section*{VIS Übungblatt 1}
+
+\subsection*{Backup}
+
+\subsubsection*{\textcolor{purple}{Aufgabe 1 (Pflicht, 3 P.)}}
+\textit{Nennen Sie drei typische Probleme, die für eine Datensicherung sprechen.}\\
+
+Typische Probleme sind u.a. 
+\begin{enumerate}
+	\item Hardwaredefekte, also z.B. Ausfall einer Festplatte
+	\item Diebstahl von Datenträgern wie Festplatten
+	\item Höhere Gewalt, also z.B. Feuer, Erdbeben etc.
+\end{enumerate}
+
+\subsubsection*{\textcolor{gray}{Aufgabe 2 (Optional)}}
+\textit{Welche Einflussfaktoren sind bei der Wahl von Backupstrategie und Backup-
+medium zu berücksichtigen?}\\
+
+
+
+\subsubsection*{\textcolor{gray}{Aufgabe 3 (Optional)}}
+\textit{Auf welche Punkte sollte bei der Wahl des Backup-Aufbewahrungsortes
+geachtet werden?}\\
+
+
+
+\subsubsection*{\textcolor{purple}{Aufgabe 4 (Pflicht, 4 P.)}}
+\textit{Was ist der Unterschied zwischen einem inkrementellen und einem differenziellen Backup? Welche Vor- und Nachteile haben diese Varianten?}\\
+
+Das inkrementelle Backup sichert alle Daten, die nach dem letzten Backup (Voll oder inkrementell) hinzugekommen sind.
+Ein Vorteil ist hierbei die im Vergleich zu dem differenziellen Backup bessere Speichereffizienz, da nur neue Daten gesichert werden.
+Zum Wiederherstellen eines vorherigen Standes müssen allerdings das Voll-Backup plus alle bisherigen inkrementellen Backups nacheinander ausgeführt werden, 
+dies bedeutet ggf. mehr Aufwand.
+Ist zudem ein inkrementelles Backup vor dem aktuellen Backup defekt/gelöscht, kann nur der Stand bis vor diesem wiederhergestellt werden.
+
+Beim differenziellen Backup werden alle Daten, die nach dem letzten Voll-Backup hinzugekommen sind gesichert.
+Dies kann zu höherem Speicherbedarf führen, vereinfacht aber die Wiederherstellung.
+Zudem haben differenzielle Backup als Abhängigkeit einzig das letzte Voll-Backup.
+
+\subsection*{RAID}
+
+\subsubsection*{\textcolor{purple}{Aufgabe 5 (Pflicht, 1 P.)}}
+\textit{Der Einsatz von RAID-Systemen erspart im Regelfall nicht ein Backup.
+Warum?}
+
+RAID-Systeme können die Datensicherung verstärken und ggf. die Verfügbarkeit verbessern,
+allerdings schützen sie nicht vor versehentlichem bzw. gewollten Löschen von Daten, Viren und möglichen Softwarefehlern.
+
+\subsubsection*{\textcolor{gray}{Aufgabe 6 (Optional)}}
+\textit{Sie suchen nach einer fehlertoleranten Speicherlösung. Der Ausfall einer
+Festplatte soll toleriert werden. In die engere Auswahl kommen RAID 1 und RAID 5. Vergleichen
+Sie RAID 1 und RAID 5 hinsichtlich Fehlertoleranz, Performance und Kosten.}
+
+
+\subsubsection*{\textcolor{purple}{Aufgabe 7 (Pflicht, 3 P.)}}
+\textit{Sie verfügen über 4 Festplatten mit jeweils 500 GB Speicherplatz. Geben
+Sie für jede der folgenden RAID-Varianten an, wieviel Speicherplatz Sie für Daten nutzen können:
+a) RAID 0, b) RAID 1, c) RAID 4, d) RAID 5, e) RAID 6 und f) RAID 10.}
+
+\begin{enumerate}
+	\item RAID 0 \\
+			Ein RAID 0-System verteilt die Daten auf den 4 Festplatten (ohne Redundanz). Hier sind also $4\cdot 500$GB = \textbf{2TB} Speicherplatz nutzbar.
+	\item RAID 1 \\
+			Werden die Daten im RAID 1 nur einmal gespiegelt, wären  $2\cdot 500$GB =\textbf{ 1TB} Speicherplatz nutzbar. (Bei höherer Spiegelungszahl entsprechend weniger)
+	\item RAID 4 \\
+			Für RAID 4 wird eine Festplatte für die Paritätsinformationen gebraucht, also sind $3\cdot 500$GB = \textbf{1.5TB} Speicherplatz nutzbar.
+	\item RAID 5\\
+			Ähnlich wie zu RAID 4, die Paritätsinformationen sind hier zwar verteilt, aber genauso groß, also sind effektiv $3\cdot 500$GB = \textbf{1.5TB} Speicherplatz nutzbar.
+	\item RAID 6\\
+			Durch die \textit{Kreuzparität} werden hier zwei Festplatten für die Paritätsinformationen gebraucht, d.h. es sind $2\cdot 500$GB =\textbf{ 1TB} Speicherplatz nutzbar.
+	\item RAID 10\\
+			Bei der verteilte Spiegelung werden 1 Festplatte für die Spiegelung und 2 für die verteilte Spiegelung genutzt, daher ist nur
+			\textbf{500GB} Speicherplatz nutzbar.
+\end{enumerate}
+
+
+\subsubsection*{Aufgabe 8}
+\textit{Gegeben ist folgendes RAID-4-System, bestehend aus drei Datenplatten (HDD-1 bis HDD-3) und einer Paritätsplatte (HDD-P):
+\begin{itemize}
+	\item Inhalt HDD-1 01101011
+	\item Inhalt HDD-2 10010011
+	\item Inhalt HDD-3 00011011
+	\item Inhalt HDD-P 11100011
+\end{itemize}}
+
+\subsubsection*{\textcolor{gray}{Aufgabe 8a (Optional)}}
+\textit{Ist das RAID-4-System in einem konsistenten Zustand?}\\
+
+\subsubsection*{\textcolor{purple}{Aufgabe  8b  (Pflicht,  4  P.)}}
+\textit{Der  Inhalt  von HDD-1 soll  mit 10010111 überschrieben  werden.
+Berechnen Sie die neue Parität mit und ohne Small-Write Algorithmus.}\\
+
+
+Ohne Small-Write:
+\[ \text{HDD-1}_{new} \oplus \text{HDD-2} \oplus \text{HDD-3} = \text{HDD-P}_{new}\]
+\[ 10010111 \oplus 10010011 \oplus 00011011 = 00011111\]
+
+Mit Small-Write:
+\[ \text{HDD-1}_{new} \oplus \text{HDD-1}_{old}  \oplus \text{HDD-P}_{old}  = \text{HDD-P}_{new}\]
+\[ 10010111 \oplus 01101011 \oplus 11100011 = 00011111\]
+
+\subsubsection*{\textcolor{purple}{Aufgabe 8c (Pflicht 6 P.)}}
+Das Codewort im Bild lautet: Plattendiversität.\\
+
+Ich habe ein einfaches Programm in Java geschrieben, welches nicht sehr dynamisch ist und keine Fehlerbehandlung durchführt,
+aber das Problem löst:
+\lstset{style=java}
+\begin{lstlisting}
+public class Main {
+    private final static String disksFolder = ".../VIS/Übung/Blatt01/raid4/";
+    private final static String disk0 = "disk0";
+    private final static String disk2 = "disk2";
+    private final static String diskP = "disk3";
+    private final static int stripSize = 4096;
+
+    public static void main(String[] args) throws IOException {
+        final Path disk0f = Paths.get(disksFolder + disk0);
+        final Path disk2f = Paths.get(disksFolder + disk2);
+        final Path diskPf = Paths.get(disksFolder + diskP);
+
+        byte[] disk0Data = Files.readAllBytes(disk0f);
+        byte[] disk2Data = Files.readAllBytes(disk2f);
+        byte[] diskPData = Files.readAllBytes(diskPf);
+
+        Path data = Paths.get(disksFolder + "data");
+        Files.write(data, readRaidDisks(disk0Data, restoreDisk(disk0Data, disk2Data, diskPData), disk2Data));
+    }
+
+    private static byte[] restoreDisk(final byte[] disk0Data, final byte[] disk2Data, final byte[] diskPData) {
+        
+        byte[] disk1Data = new byte[diskPData.length];
+
+        //restoring disk with xor composition
+        int i = 0;
+        for (byte diskPDataB : diskPData) {
+            disk1Data[i] = (byte) ((diskPDataB ^ disk0Data[i]) ^ disk2Data[i]);
+            i++;
+        }
+        return disk1Data;
+    }
+
+    private static byte[] readRaidDisks(final byte[] disk0Data, final byte[] disk1Data, final byte[] disk2Data) throws IOException {
+        final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+        //concatenate data strips to get an image of cute kittens
+        for(int i = 0; i < disk0Data.length / stripSize; i++) {
+            int from = stripSize * i;
+            int to = from + stripSize;
+            outputStream.write(Arrays.copyOfRange(disk0Data, from, to));
+            outputStream.write(Arrays.copyOfRange(disk1Data, from, to));
+            outputStream.write(Arrays.copyOfRange(disk2Data, from, to));
+        }
+        return outputStream.toByteArray();
+    }
+}
+
+
+\end{lstlisting}
+
+
+\end{document}
