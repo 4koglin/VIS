@@ -1,0 +1,182 @@
+\documentclass[10pt,a4paper, xcolor=dvinames]{article} % [SchriftgrÃ¶ÃŸe, Papierformat] {Art des Dokuments}
+
+
+%---------------------------------------------------------------------------------------
+% Die folgenden sind grundlegende Packete, die man meistens braucht:
+% fÃ¼r deutsch (z.B Ã¤,Ã¶,...)
+\usepackage[ansinew]{inputenc}
+\usepackage{enumerate} % fÃ¼r einfache AufzÃ¤hlungen
+\usepackage{amsmath}  % fÃ¼r mathematische Formeln und Symbole
+\usepackage{amsfonts} % auch fÃ¼r Mathe
+\usepackage{amssymb}  % auch fÃ¼r Mathe
+\usepackage{amsthm}   % auch fÃ¼r Mathe
+\usepackage{a4wide} % macht die SeitenrÃ¤nder kleiner
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{color}
+\usepackage{soul} 
+\usepackage{listings}
+\usepackage{lastpage}
+\usepackage[hidelinks]{hyperref}
+\usepackage[german, ngerman]{babel}
+\usepackage{tikz}
+\usepackage{tabularx}
+\usepackage{ctable}
+
+\usepackage[numbers]{natbib}
+\bibliographystyle{ieeetr}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{light-gray}{gray}{0.25}
+
+\lstdefinestyle{java}{
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\footnotesize\ttfamily},
+  numberstyle={\tiny},
+  numbers=left,
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\definecolor{lightgrey}{rgb}{0.90,0.90,0.90}
+  \lstset{
+    tabsize=2,
+    escapeinside={(*@}{@*)},
+    captionpos=t,
+    framerule=0pt,
+    backgroundcolor=\color{lightgrey},
+    basicstyle=\small\ttfamily,
+    keywordstyle=\small\bfseries,
+    numbers=left,
+    fontadjust,
+    escapechar=§,
+    breaklines=true
+  }
+  
+ 
+  \newcommand\bh{\tikz[remember picture]
+                    \node (begin highlight) {};
+                 }
+  \newcommand\eh{\tikz[remember picture]
+                 \node (end highlight) {};
+                 \tikz[remember picture, overlay] 
+                 \draw[yellow,line width=10pt,opacity=0.3] (begin highlight) -- (end
+                  highlight);
+                 }
+
+
+%Kopf- und Fußzeile
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+
+%Kopfzeile links bzw. innen
+\fancyhead[L]{VIS, Blatt 6 -  Yunus Gördesli, Kai Nießen, Merlin Koglin}
+%Kopfzeile rechts bzw. außen
+\fancyhead[R]{\today}
+%Linie oben
+\renewcommand{\headrulewidth}{0.5pt}
+
+\rfoot{\thepage \hspace{1pt}}
+
+\newlength\tindent
+\setlength{\tindent}{\parindent}
+\setlength{\parindent}{0pt}
+\renewcommand{\indent}{\hspace*{\tindent}}
+
+\begin{document} % Hier fÃ¤ngt logischerweise das Document an ;)
+
+\subsection*{Aufgabe 1: Logische Uhren}
+\begin{enumerate}[a)]
+
+
+\item
+\textit{In einem verteilten System treten die Ereignisse a bis l auf. Die kausalen
+Abhängigkeiten sind durch das nachfolgende Happened-Before-Diagramm gegeben. Geben
+Sie für alle im Happend-Before-Diagramm vorhandenen Ereignisse jeweils die Lamportzeit
+und die Vektorzeit an.}
+\\
+
+\begin{center}
+
+\begin{tabular}{|c|c|c|}
+\hline
+Ereignis  & Vektorzeit & Lamportzeit ($P_1$, $P_2$, $P_3$) \\
+\specialrule{.1em}{.0em}{.0em}
+a & 3 & (1, 0, 2)\\
+\hline
+b & 4 & (2, 0, 2)\\
+\hline
+c & 9 & (3, 5, 3)\\
+\hline
+d & 2 & (0, 1, 1)\\
+\hline
+e & 5 & (2, 2, 2)\\
+\hline
+f & 6 & (2, 3, 2)\\
+\hline
+g & 7 & (2, 4, 3)\\
+\hline
+h & 8 & (2, 5, 3)\\
+\hline
+i & 1 & (0, 0, 1)\\
+\hline
+j & 2 & (0, 0, 2)\\
+\hline
+k & 3 & (0, 0, 3)\\
+\hline
+l & 7 & (2, 3, 4)\\
+\hline
+\end{tabular}
+\end{center}
+
+\item
+\textit{Geben Sie an, welche der folgenden Behauptungen für die Lamportzeit
+zutrifft und welche der Behauptungen für die Vektorzeit zutrifft. Erläutern Sie weiterhin
+ihre Wahl.}\\
+Eine Lamport Uhr erfüllt nur die schwachen Konsistenzbedingung für Uhren, d.h. für die Lamportzeit gilt Aussgae II), aber nicht I) und III). Man kann mithilfe der Lamportzeit also Ereignisse kausal nach dem Aufreten ordnen, aber keine Aussagen über Nebenläufigkeit und kausale Abhängikeiten treffen.
+
+Für die logische Uhr gelten alle drei Aussagen. Insbesondere erfüllt diese die starke Konsistenzbedingung für Uhren, d.h. I) und II) gelten beide.
+Da durch Vergleichen der Zeiten kausale Abhängigkeiten erkannt werden können, kann auch eine kausale Unabhängikeit und damit Nebenläufigkeit erkannt werden. Somit gilt hier auch Aussage III).
+\end{enumerate}
+
+\subsection*{Aufgabe 3: Zeitsynchronisation}
+\begin{enumerate} [a)]
+	\item Sei $t$ der Zeitstempel des Servers und $T_{round}$ die Zeitspanne von Anfrage bis Rückantwort. Dann ist:
+\[T_{sync} = t + \frac{T_{round}}{2} = \text{10:14:05} + \frac{\text{10:14:06} - \text{10:14:00}}{2} =  \text{10:14:05} + \text{00:00:03} = \text{10:14:08}\]
+
+	\item Die Berechnung nach Cristian beruht auf der Annahme, dass ein Paket für Hin- und Rückweg die gleiche Übertragunszeit hat. In obiger Betrachtung wurde zudem angenommen, dass die Bearbeitung der Anfrage und Erstellung einer Antwort keine Zeit beansprucht.
+
+\end{enumerate}
+
+
+\subsection*{Aufgabe 4: Bully-Algorithmus}
+\begin{enumerate}
+	\item Der Bully-Algorithmus ist ein Auswahlalgorithmus der einen bestimmten Teilnehmer eindeutig bestimmt.
+	In verteilten System kann hiermit z.B. beim Ausfall eines Koordinatorprozesses ein neuer Koordinator gewählt werden.
+	Es wird hierbei angenommen, dass jeder Prozess die Id jedes anderen Prozesses im System kennt.
+	Ein beliebiger Prozess, der den Ausfall des Koordinators registriert, z.B. durch ein Timeout, startet den Bully-Algorithmus indem er an alle Prozesse mit einer höheren Prozess-Id eine Wahlnachricht sendet.
+	Empfängt ein Prozess eine Wahlnachricht, sendet dieser wiederum eine Wahlnachricht an alle Prozesse mit höherer Prozess-Id und eine Antwort an den Prozess, von dem die Wahlnachricht gesendet wurde.
+	Falls ein Prozess die höchste Prozess-Id besitzt oder keine Anwort von anderen Prozessen erhält, wird dieser der neue Koordinator.
+	
+	Bully-Algorithmus für vier aktive Knoten mit den IDs (3, 5, 9, 11):
+	\begin{enumerate}
+		\item $K_5$ beginnt und sendet Wahlnachricht an $K_9$, $K_{11}$.
+		\item $K_9$, $K_{11}$ senden eine \textit{alive}-Antwort an $K_5$.
+		\item $K_9$ sendet Wahlnaricht an $K_{11}$.
+		\item $K_{11}$ besitzt die höchste registrierte Prozess-Id und sendet seine eigene Wahl an die übrigen Prozesse.
+	\end{enumerate}
+	
+\end{enumerate}
+
+\end{document}
